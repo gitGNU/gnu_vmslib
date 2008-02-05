@@ -1,0 +1,14 @@
+dnl ...
+dnl With the autoconf I produce for VMS, this is very possible. -- Richard L.
+AC_INSTALL_EXTRA_ARG(--startupdir=DIR,startupdir,dnl
+-STARTUPDIR/--ST*ARTUPDIR=,STARTUPDIR,
+[--startupdir=DIR	defines the directory for the startup database],
+[SYS$COMMON:[SYS$STARTUP]])dnl
+AC_INSTALL_EXTRA_prsub(startupdir)dnl
+dnl
+AC_INIT(...)
+dnl ...
+AC_OUTPUT([dnl
+dnl ...
+dnl ...
+])

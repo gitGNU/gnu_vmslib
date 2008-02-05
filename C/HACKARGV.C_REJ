@@ -1,0 +1,55 @@
+***************
+*** 415,420
+            }
+            redirection = STDOUT | CONCAT | OVRWRT;
+          }
+          else if (strncmp(">&!+",(*pargv)[i],j=4) == 0) {
+            if (errfile) {
+              fprintf (stderr, "stderr already redirected to %s\n", errfile);
+--- 415,427 -----
+            }
+            redirection = STDOUT | CONCAT | OVRWRT;
+          }
++         else if (strncmp(">>", (*pargv)[i],j=2) == 0) {
++           if (outfile) {
++             fprintf (stderr, "stdout already redirected to %s\n", outfile);
++             abort ();
++           }
++           redirection = STDOUT | CONCAT;
++         }
+          else if (strncmp(">&!+",(*pargv)[i],j=4) == 0) {
+            if (errfile) {
+              fprintf (stderr, "stderr already redirected to %s\n", errfile);
+***************
+*** 606,615
+    *pargc = ac;
+    *pargv = av;
+    /* Actually do the redirection */
+!   if (outfile) {
+!     freopen (outfile, "w", stdout);
+!     chkfile (stdout);
+!   }
+    if (errfile)
+      if (errfile == outfile)
+        stderr = stdout;
+--- 613,632 -----
+    *pargc = ac;
+    *pargv = av;
+    /* Actually do the redirection */
+!   if (outfile)
+!     {
+!       if (outflags & VMSFMT)
+!       if (outflags & CONCAT)
+!         freopen (outfile, "a", stdout, "recfm=var", "rat=cr");
+!       else
+!         freopen (outfile, "w", stdout, "recfm=var", "rat=cr");
+!       else
+!       if (outflags & CONCAT)
+!         freopen (outfile, "a", stdout);
+!       else
+!         freopen (outfile, "w", stdout);
+!       chkfile (stdout);
+!     }
+    if (errfile)
+      if (errfile == outfile)
+        stderr = stdout;

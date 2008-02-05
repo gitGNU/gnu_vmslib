@@ -1,0 +1,78 @@
+Sun Feb 25 23:36:48 1996  Richard Levitte  <LEVITTE@eliza.e.kth.se>
+
+	* descrip.mms_in (distclean): Added deletion of routines.tpu$section.
+
+	* hackdebug.c: had to bend over to get the declaration of
+	read() through with no compiler warnings and no linking errors.
+	This applies to DEC C 5.2 only (or at least so far).
+
+Wed Nov 29 13:42:04 1995  Richard Levitte  <LEVITTE@eliza.e.kth.se>
+
+	* hackdebug.c: Include the headers before defining certain
+	stdio symbols.
+
+Wed Jun 28 07:42:32 1995  Richard Levitte  <LEVITTE@eliza.e.kth.se>
+
+	* hackdebug.c: is now possible to compile with DEC C without
+	/PREFIX=ALL
+
+Tue Jun 27 16:58:38 1995  Richard Levitte  <LEVITTE@eliza.e.kth.se>
+
+	* hackargv.c: is now possible to compile with DEC C without
+	/PREFIX=ALL
+
+Wed May 17 14:47:36 1995  Roland B Roberts  (roberts@panix.com)
+
+	* hackargv.c: Added I/O redirection support for concatenation and
+	VMS file attributes (to match documented features!).
+
+Mon Sep 19 13:44:48 1994  Roland B Roberts <roberts@vaxms2.dnet.ge.com>
+
+	* pipe.c (popen): the call to sys$crembx was short one parameter.
+
+Fri Sep 16 10:53:21 1994  Roland B Roberts <roberts@vaxms2.dnet.ge.com>
+
+	* pipe.c: added module version information.
+	(pwait, pclose): give sys$synch the event flag through evf
+	instead of an explicit `1'.
+
+Thu Sep 15 18:23:53 1994  Richard Levitte  (LEVITTE@elmer.e.kth.se)
+
+	* pipe.c (pwait): close the file even if the process is gone.
+
+Thu Sep 15 18:13:54 1994  Roland B Roberts <roberts@vaxms2.dnet.ge.com>
+
+	* pipe.c: added the variable evf to hold the event flag used.
+	(pwait, pclose): will only do sys$synch if subprocess still
+	exists.
+	(pclose): corrected the assignment with `==' to `='.
+	(pdone): is now of type void instead of static int.
+	(popen): now calls sys$spawn with &evf as event flag specifier.
+
+Tue Sep 13 08:15:59 1994  Roland B Roberts <roberts@vaxms2.dnet.ge.com>
+
+	* types.h: New file, which contains some common VMS types.
+
+	* pipe.c: Includes types.h instead of pipe.h.  Has also been
+	changed a lot to removed the limit on the number of pipes.
+	Changed the PIPE structure to ba a doubly linked list instead
+	of an array as part of this change.  All subprocesses now
+	use event flag 0 for completion, also as part of removing the
+	limit on the number of pipes.
+	(popen): Doesn't abort on error anymore.  Instead, it returns
+	NULL, after setting errno and vaxc$errno to the proper error
+	code.
+	(pclose): Now returns the exit status of the subprocess iff the
+	subprocess didn't exit with a successfull status code.  It
+	returns 0 if the subprocess exited with a successfull status
+	code.
+
+Wed Aug  3 10:50:24 1994  Richard Levitte  (LEVITTE@elmer.e.kth.se)
+
+	* utime.c (utime): Changed all `#ifdef __ALPHA' to `#ifdef __DECC'.
+
+Fri May 27 19:38:27 1994  Richard Levitte  (LEVITTE@eliza.e.kth.se)
+
+	* compvmslib.com_in: Also compiles routines.tpu$section.
+
+

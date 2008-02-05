@@ -1,0 +1,19 @@
+*** decomplnm.com;26	Wed Oct 19 10:38:38 1994
+--- decomplnm.com;27	Wed Jul 10 04:35:24 1996
+***************
+*** 24,30 ****
+  $
+  $ if p1 .eqs. "" then goto nothing
+  $
+! $ @'proc_dir'canonicaldir 'p1' __result
+  $ p1 = __result
+  $ __lnm = p1
+  $ __lnmresultprefix := __lnm
+--- 24,30 ----
+  $
+  $ if p1 .eqs. "" then goto nothing
+  $
+! $ @'proc_dir'canonicaldir 'p1' __result COMPLETE
+  $ p1 = __result
+  $ __lnm = p1
+  $ __lnmresultprefix := __lnm

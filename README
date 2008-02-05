@@ -1,0 +1,22 @@
+VMSLIB -- helps people port GNU software to VMS.
+
+VMSLIB is a bunch of files and small routines that can help people to port
+GNU programs to VMS.  It consists of a C function library, with routines
+that are missing in the current system C libraries that have been seen so
+far, maybe with the exception of GNU libc.  In VMSLIB, there are also a
+bunch of scripts (in VMS terminology, they are called `command procedures')
+which help a lot in writing makefiles, and other scripts.  There is more,
+please read the README file in each directory for further instruction.
+
+VMSLIB is different from the package you usually use by not really being a
+program that you can use in itself.  Rather, you will tend to copy a few,
+or maybe all of the files to whatever other GNU program you wish to port.
+There is one program (really a script) that can be used directly, and that
+is gen_descrip.com.  It is a command procedure that takes an input file
+and generates a makefile, which you can use to automagically copy the right
+files to the right other GNU packages.
+
+Mail suggestions and bug reports for VMSLIB to levitte@e.kth.se.  If that
+doesn't work, try bug-gnu-utils@prep.ai.mit.edu instead.  Please include
+the VMSLIB version number, which you can get by looking in the file VERSION,
+along with the version of VMS you are using.
