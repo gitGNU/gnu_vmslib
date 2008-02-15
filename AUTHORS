@@ -1,18 +1,18 @@
 GNU VMSLIB authors:
 
-Snarfed files from GNU Emacs	c/dir.h, c/ndir.h
-Snarfed portions from GNU Emacs	c/ndir.c, c/filutils.c
+Snarfed files from GNU Emacs	C/DIR.H, C/NDIR.H
+Snarfed portions from GNU Emacs	C/NDIR.C, C/FILUTILS.C
 
-Roland B. Roberts	first version of the following files in c/:
-				echo.c, esctrans.c, glob.c, hackargv.c,
-				makefile, misc.c, pipe.c, test.c,
-				utime.c, hackargv.com, types.h
-			revisions of c/hackargv.c
+Roland B. Roberts	first version of the following files in C/:
+				ECHO.C, ESCTRANS.C, GLOB.C, HACKARGV.C,
+				MAKEFILE, MISC.C, PIPE.C, TEST.C,
+				UTIME.C, HACKARGV.COM, TYPES.H
+			revisions of C/HACKARGV.C
 
-Richard Levitte		first version of the following files in c/:
-				descrip.mms_in, filutils.c, filutils.h,
-				hackdebug.c, ndir.c, pipe.h, utime.h
-			revisions of all the files in c/, except:
-				echo.c, makefile, test.c, hackargv.com
+Richard Levitte		first version of the following files in C/:
+				DESCRIP.MMS_IN, FILUTILS.C, FILUTILS.H,
+				HACKDEBUG.C, NDIR.C, PIPE.H, UTIME.H
+			revisions of all the files in C/, except:
+				ECHO.C, MAKEFILE, TEST.C, HACKARGV.COM
 			first version and revisions of all the files
 			in all the other directories.
