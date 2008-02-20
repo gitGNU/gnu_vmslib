@@ -1,0 +1,22 @@
+GNU vmslib THANKS file
+
+GNU vmslib was originally written by Richard Levitte.  Many people
+further contributed to GNU vmslib by reporting problems, suggesting
+various improvements or submitting actual code.  Here is a list of
+these people.  Help me keep it complete and exempt of errors.
+
+Chris Bryant            cabryant@mednet.ucla.edu
+Paul Eggert		eggert@cs.ucla.edu
+Richard Levitte         levitte@lp.se 
+Roland B. Roberts       roland@astrofoto.org
+
+========================================================================
+
+Copyright (C) 2008 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.2 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts.  A copy of the license is included in the ``GNU Free
+Documentation License'' file as part of this distribution.

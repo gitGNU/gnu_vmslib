@@ -20,3 +20,15 @@ Mail suggestions and bug reports for VMSLIB to levitte@e.kth.se.  If that
 doesn't work, try bug-gnu-utils@prep.ai.mit.edu instead.  Please include
 the VMSLIB version number, which you can get by looking in the file VERSION,
 along with the version of VMS you are using.
+
+========================================================================
+
+Copyright (C) 2008 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.2 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts.  A copy of the license is included in the ``GNU Free
+Documentation License'' file as part of this distribution.
+
