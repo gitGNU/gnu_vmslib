@@ -62,10 +62,24 @@
 	  Levitte's code from www.ctrl-c.liu.se copied by Karl Berry
 	  (Savannah) September 2007. (Chris Bryant)
 
+Sat Jul 13 15:40:21 1996  Richard Levitte  <LEVITTE@eliza.e.kth.se>
+
+	* copy.com: A few bugs corrected.  It will possibly work better
+	in some situations.
+
 Wed Jul 10 19:40:31 1996  Richard Levitte  <LEVITTE@eliza.e.kth.se>
 
 	* pipe.c (popen): Make sure we get rid of some warnings with
 	DEC C.
+
+Wed Jul 10 18:52:25 1996  Richard Levitte  <LEVITTE@eliza.e.kth.se>
+
+	* canonicaldir.com: Added code to add default node, device and
+	directory to the given path, if the request COMPLETE is given
+	in P3.
+
+	* decomplnm.com: Make sure canonicaldir.com is called with the
+	COMPLETE argument.
 
 Sun Feb 25 23:36:48 1996  Richard Levitte  <LEVITTE@eliza.e.kth.se>
 
@@ -144,4 +158,13 @@ Fri May 27 19:38:27 1994  Richard Levitte  (LEVITTE@eliza.e.kth.se)
 
 	* compvmslib.com_in: Also compiles routines.tpu$section.
 
+========================================================================
 
+Copyright (C) 2008 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.2 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts.  A copy of the license is included in the ``GNU Free
+Documentation License'' file as part of this distribution.
