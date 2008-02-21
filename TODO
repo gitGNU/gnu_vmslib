@@ -1,0 +1,24 @@
+TODO file for GNU vmslib 
+
+Tell <cabryant@mednet.ucla.edu> if you feel like volunteering for any
+of these ideas, listed more or less in decreasing order of priority.
+
+* Features or problems
+  - Update documentation from research and contributed text.
+  - Generate experience documents from use on OpenVMS 7.x, 8.x. 
+
+* Optimization and clean up
+  - Profile GNU vmslib and speed it up in both build (GNU/Linux, 
+    OpenVMS) and execution on OpenVMS.
+  - Remove files not required in v1.0.
+
+========================================================================
+
+Copyright (C) 2008 Free Software Foundation, Inc.
+
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.2 or
+any later version published by the Free Software Foundation; with no
+Invariant Sections, with no Front-Cover Texts, and with no Back-Cover
+Texts.  A copy of the license is included in the ``GNU Free
+Documentation License'' file as part of this distribution.
