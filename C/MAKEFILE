@@ -1,16 +1,16 @@
-OBJS = hackargv.obj,misc.obj,pipe.obj,esctrans.obj,glob.obj
+OBJS = HACKARGV.OBJ,MISC.OBJ,PIPE.OBJ,ESCTRANS.OBJ,GLOB.OBJ
 
-*.obj:	*.c
+*.OBJ:	*.C
 	gcc/noopt/debug $<
 
-all: test.exe echo.exe
+all: TEST.EXE ECHO.EXE
 
-test.exe: test.obj,$(OBJS)
-	link test.obj,$(OBJS),sys$input/opt
+TEST.EXE: TEST.OBJ,$(OBJS)
+	link TEST.OBJ,$(OBJS),sys$input/opt
 	gnu_cc:[000000]gcclib/lib $
 	sys$share:vaxcrtl/share $
 
-echo.exe: echo.obj,$(OBJS)
-	link echo.obj,$(OBJS),sys$input/opt
+ECHO.EXE: ECHO.OBJ,$(OBJS)
+	link ECHO.OBJ,$(OBJS),sys$input/opt
 	gnu_cc:[000000]gcclib/lib $
 	sys$share:vaxcrtl/share $
