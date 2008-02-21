@@ -1,6 +1,0 @@
-Wed Jul 10 19:40:31 1996  Richard Levitte  <LEVITTE@eliza.e.kth.se>
-
-	* pipe.c (popen): Make sure we get rid of some warnings with
-	DEC C.
-
-
