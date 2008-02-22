@@ -5,7 +5,10 @@ further contributed to GNU vmslib by reporting problems, suggesting
 various improvements or submitting actual code.  Here is a list of
 these people.  Help me keep it complete and exempt of errors.
 
+Bob Gezelter            gezelter@rlgsc.com
 Chris Bryant            cabryant@mednet.ucla.edu
+Ian Miller              ian@openvms.org
+Marty Kuhrt             marty_gvl@kuhrt.net
 Paul Eggert		eggert@cs.ucla.edu
 Richard Levitte         levitte@lp.se 
 Roland B. Roberts       roland@astrofoto.org
