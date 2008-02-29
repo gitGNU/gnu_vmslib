@@ -1,25 +1,25 @@
-$! GNU_GENERATE_SCRIPT.COM -- General startup script.
-$ __debug_save_verify = 'f$verify(0)
-$! Copyright (C) 1994 the Free Software Foundation, Inc.
+$ __save_verif = 'f$verify(0)
 $!
-$! Author: Richard Levitte <levitte@e.kth.se>
+$! GNU vmslib - Helps people port GNU software to VMS.
+$! Copyright (C) 1994-2008 the Free Software Foundation, Inc.
 $!
-$! This file is a part of GNU VMSLIB, the GNU library for porting GNU
-$! software to VMS.
+$! Author: Richard Levitte <levitte@lp.se>
+$! Maintainer: Chris Bryant <cabryant@mednet.ucla.edu>
 $!
-$! GNU VMSLIB is free software; you can redistribute it and/or
-$! modify it under the terms of the GNU General Public License
-$! as published by the Free Software Foundation; either version 2
-$! of the License, or (at your option) any later version.
-$! 
-$! GNU VMSLIB is distributed in the hope that it will be useful,
+$! This program is free software: you can redistribute it and/or modify
+$! it under the terms of the GNU General Public License as published by
+$! the Free Software Foundation, either version 3 of the License, or
+$! (at your option) any later version.
+$!
+$! This program is distributed in the hope that it will be useful,
 $! but WITHOUT ANY WARRANTY; without even the implied warranty of
 $! MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 $! GNU General Public License for more details.
-$! 
+$!
 $! You should have received a copy of the GNU General Public License
-$! along with GNU VMSLIB; if not, write to the Free Software
-$! Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+$! along with this program.  If not, see <http://www.gnu.org/licenses/>.
+$!
+$! GNU_GENERATE_SCRIPT.COM -- General startup script.
 $
 $! GNU_STARTUP.COM reads the data from the file GNU_STARTUP.DAT in the
 $! same directory.
@@ -28,7 +28,10 @@ $! Description:
 $!
 $! This command file will just read a file, given through the argument P1,
 $! and generate a command file from it.  The name of the command file is
-$! given in P2.
+$! given in P2.  The optional argument P3 can hold some comma-separated
+$! substitutions that should be made, in the form `FOO=bar,cookie=kzar'.
+$! If this script finds `@FOO@' or `@cookie@' in the input file, they
+$! will be substituted with `bar' and `kzar', respectivelly.
 $!
 $! A description of the format of the input is given at the end of this file.
 $!
@@ -39,6 +42,8 @@ $ open/read/error=noinfile gnu_data_file 'p1'
 $ open/write/error=nooutfile gnu_startup_file 'p2'
 $ on control_y then goto bugout
 $ on error then goto bugout
+$ __extra_substitutions = P3
+$ gosub __parse_substitutions
 $ write/error=bugout gnu_startup_file "$ __debug_save_verify = 'f$verify(0)'"
 $ write/error=bugout gnu_startup_file "$! Generated from ",p1
 $!
@@ -52,8 +57,11 @@ $ line_i = 0
 $ line0 = ""
 $loop_file2:
 $ line'line_i' = ""
-$ read/end=nomore/error=nomore gnu_data_file line'line_i'
-$ if f$edit(line'line_i',"TRIM") .eqs. "" then goto loop_file2
+$ __read_infile:=gnu_data_file
+$ __read_symbol:=line'line_i'
+$ gosub __read
+$ if __read_status .eqs. "END_OF_FILE" then goto nomore
+$ if __read_status .eqs. "ERROR" then goto nomore
 $ if f$extract(0,1,line'line_i') .eqs. "!"
 $  then
 $   if started
@@ -76,7 +84,6 @@ $ if f$extract(0,1,line0) .nes. " "
 $  then
 $   if started then goto several_p ! Shouldn't be necessary!
 $   started := yes
-$   logicals = ","
 $   title = ""
 $   e = f$element(0," ",line0)
 $   utility = f$element(0,"-",e)
@@ -224,7 +231,11 @@ $
 $   open/read gnu_temp_data 'p1'
 $   gnu_extra_file := gnu_temp_data
 $  loop_data_file:
-$   read/end=loop_data_file_end/err=loop_data_file_end gnu_temp_data temp_line
+$   __read_infile:=gnu_temp_data
+$   __read_symbol:=temp_line
+$   gosub __read
+$   if __read_status .eqs. "END_OF_FILE" then goto loop_data_file_end
+$   if __read_status .eqs. "ERROR" then goto loop_data_file_end
 $   write/error=bugout gnu_startup_file "$!GNU DATA: ",temp_line
 $   goto loop_data_file
 $  loop_data_file_end:
@@ -244,7 +255,7 @@ $  ENDIF
 $ IF _gnu_debug THEN SET VERIFY
 $EOD
 $ write/error=bugout gnu_startup_file -
-	"$ if _gnu_verbose then write sys$error ""%GNU_STARTUP-I-SETTING_UP,  setting up "",-"
+	"$ if _gnu_verbose then write sys$error ""%SETUP-I-DEBUG,  setting up "",-"
 $ write/error=bugout gnu_startup_file "	""",title,""""
 $!  write/error=bugout gnu_startup_file "$ IF _gnu_debug THEN GOTO ",hacked_utility,"_GNU_DEBUG_",hacked_utility
 $  else
@@ -253,9 +264,6 @@ $    then
 $     goto A_'f$edit(f$element(0,"\",line0),"collapse")'
 $    A_D:
 $     name = f$element(1,"\",line0)
-$     if f$locate(","+name+",",logicals) .ne. f$length(logicals) then -
-	goto loop_file
-$     logicals = logicals + name + ","
 $     if f$edit(f$extract(0,4,name),"UPCASE") .eqs. "SYS$" then goto loop_file
 $     write/error=bugout gnu_startup_file "$ '_gnu_verify_stmt'"
 $     write/error=bugout gnu_startup_file "$ IF .NOT. _gnu_forcelogicals -"
@@ -299,11 +307,6 @@ $     write/error=bugout gnu_startup_file "$ '_gnu_verify_stmt'"
 $     write/error=bugout gnu_startup_file "$ ",f$element(1,"\",line0)," :== ",f$element(2,"\",line0)
 $     write/error=bugout gnu_startup_file "$ '_gnu_noverify_stmt'"
 $     goto loop_file
-$    A_CLD:
-$     write/error=bugout gnu_startup_file "$ '_gnu_verify_stmt'"
-$     write/error=bugout gnu_startup_file "$ SET COMMAND ",f$element(1,"\",line0)
-$     write/error=bugout gnu_startup_file "$ '_gnu_noverify_stmt'"
-$     goto loop_file
 $    A_H:
 $!     write/error=bugout gnu_startup_file "$ IF .not. _gnu_forcelogicals THEN GOTO ",hacked_utility,"_DONT_MAKE_HELP"
 $     value = f$element(1,"\",line0)
@@ -333,13 +336,7 @@ $     write/error=bugout gnu_startup_file "$ '_gnu_noverify_stmt'"
 $     write/error=bugout gnu_startup_file "$",hacked_utility,"_DONT_MAKE_HELP:"
 $     goto loop_file
 $    A_I:
-$     Iprogram = f$element(1,"\",line0)
-$     Iflags = f$element(2,"\",line0)
-$     Iprogramname = f$parse(Iprogram,,,"NAME","SYNTAX_ONLY")
-$     if f$type(I'hacked_utility'_'Iprogramname'_cnt) .eqs. "" then -
-	I'hacked_utility'_'Iprogramname'_cnt = 0
-$     I'hacked_utility'_'Iprogramname'_cnt = I'hacked_utility'_'Iprogramname'_cnt + 1
-$     write/error=bugout gnu_startup_file "$ IF .NOT. _gnu_install_image THEN GOTO ",hacked_utility,"_",Iprogramname,"_DONT_INSTALL_IMAGE",I'hacked_utility'_'Iprogramname'_cnt
+$     write/error=bugout gnu_startup_file "$ IF .NOT. _gnu_install_image THEN GOTO ",hacked_utility,"_DONT_INSTALL_IMAGE"
 $     write/error=bugout gnu_startup_file "$ '_gnu_verify_stmt'"
 $     write/error=bugout gnu_startup_file "$ _needed_privs = ""CMKRNL,SYSGBL,PRMGBL"""
 $     write/error=bugout gnu_startup_file "$ _command = ""ADD"""
@@ -347,20 +344,18 @@ $     write/error=bugout gnu_startup_file "$ _tmp := ",f$element(1,"\",line0)
 $     write/error=bugout gnu_startup_file "$ IF f$file_attrib(_tmp,""KNOWN"") THEN _command = ""REPLACE"""
 $     write/error=bugout gnu_startup_file "$ _curpriv = f$getjpi("""",""CURPRIV"")"
 $     write/error=bugout gnu_startup_file "$ SET PROCESS/PRIV=('_needed_privs)"
-$     write/error=bugout gnu_startup_file "$ IF f$privilege(_needed_privs) THEN GOTO ",hacked_utility,"_",Iprogramname,"_HAVE_PRIVS",I'hacked_utility'_'Iprogramname'_cnt
+$     write/error=bugout gnu_startup_file "$ IF f$privilege(_needed_privs) THEN GOTO ",hacked_utility,"_HAVE_PRIVS"
 $     write/error=bugout gnu_startup_file "$ WRITE SYS$ERROR ""You need the privileges "",_needed_privs,-"
-$     write/error=bugout gnu_startup_file "	"" to install ",hacked_utility," ",Iflags,""""
-$     write/error=bugout gnu_startup_file "$ GOTO ",hacked_utility,"_",Iprogramname,"_END_INSTALL_IMAGE",I'hacked_utility'_'Iprogramname'_cnt
-$     write/error=bugout gnu_startup_file "$",hacked_utility,"_",Iprogramname,"_HAVE_PRIVS",I'hacked_utility'_'Iprogramname'_cnt,":"
+$     write/error=bugout gnu_startup_file "	"" to install Emacs ",f$element(2,"\",line0),""""
+$     write/error=bugout gnu_startup_file "$ GOTO ",hacked_utility,"_END_INSTALL_IMAGE"
+$     write/error=bugout gnu_startup_file "$",hacked_utility,"_HAVE_PRIVS:"
 $     write/error=bugout gnu_startup_file "$ _install := $INSTALL/COMMAND_MODE"
-$     write/error=bugout gnu_startup_file "$ set noon"
 $     write/error=bugout gnu_startup_file "$ _install '_command' ",-
-	Iprogram," ",Iflags
-$     write/error=bugout gnu_startup_file "$ set on"
-$     write/error=bugout gnu_startup_file "$",hacked_utility,"_",Iprogramname,"_END_INSTALL_IMAGE",I'hacked_utility'_'Iprogramname'_cnt,":"
+	f$element(1,"\",line0)," ",f$element(2,"\",line0)
+$     write/error=bugout gnu_startup_file "$",hacked_utility,"_END_INSTALL_IMAGE:"
 $     write/error=bugout gnu_startup_file "$ SET PROCESS/PRIV=(noall,'_curpriv')"
 $     write/error=bugout gnu_startup_file "$ '_gnu_noverify_stmt'"
-$     write/error=bugout gnu_startup_file "$",hacked_utility,"_",Iprogramname,"_DONT_INSTALL_IMAGE",I'hacked_utility'_'Iprogramname'_cnt,":"
+$     write/error=bugout gnu_startup_file "$",hacked_utility,"_DONT_INSTALL_IMAGE:"
 $     goto loop_file
 $    endif
 $  endif
@@ -383,6 +378,76 @@ $ close gnu_startup_file
 $ if .not. keep then delete 'f$parse(p2,"*.*;*")'
 $nooutfile:
 $ close gnu_data_file
-$noinfile:
+$nofile:
 $exit:
-$ exit 1 + 0*f$verify(__debug_save_verify)
+$ exit
+$
+$! Reader subroutines
+$__read:
+$ __read_status = ""
+$ read/error=__read_error/end=__read_end '__read_infile' '__read_symbol'
+$ __subst_i = 0
+$__read_loop_subst:
+$ if __subst_i .ge. __subst_max then return
+$__read_loop_subst2:
+$ __subst_key_l = f$length(__subst_key_'__subst_i')
+$ __subst_p = f$locate(__subst_key_'__subst_i', '__read_symbol')
+$ if __subst_p .eq. f$length('__read_symbol') then goto __read_loop_subst_end
+$ '__read_symbol' = f$extract(0,__subst_p,'__read_symbol') + -
+__subst_val_'__subst_i' + -
+f$extract(__subst_p+__subst_key_l, -
+	  f$length('__read_symbol')-__subst_p-__subst_key_l,'__read_symbol')
+$ goto __read_loop_subst2
+$__read_loop_subst_end:
+$ __subst_i = __subst_i + 1
+$ goto __read_loop_subst
+$__read_error:
+$ __read_status = "ERROR"
+$ return
+$__read_end:
+$ __read_status = "END_OF_FILE"
+$ return
+$
+$! Parse substitutions
+$__parse_substitutions:
+$ __subst_max = 0
+$__parse_substitutions_init:
+$ __subst_curr = ""
+$__parse_substitutions_loop:
+$ __subst_e1 = f$element(0,",",__extra_substitutions)
+$ __subst_e2 = f$element(0,"""",__extra_substitutions)
+$ sh sym __extra_substitutions
+$ sh sym __subst_e1
+$ sh sym __subst_e2
+$ if __extra_substitutions .eqs. "" then goto __subst_process
+$ if f$length(__subst_e1) .lt. f$length(__subst_e2) -
+	.or. f$length(__subst_e2) .eq. f$length(__extra_substitutions) then -
+	goto __subst_process
+$ __subst_curr = __subst_curr + __subst_e2 + """"
+$ __extra_substitutions = -
+	f$extract(f$length(__subst_e2)+1,f$length(__extra_substitutions), -
+	__extra_substitutions)
+$ __subst_e2 = f$element(0,"""",__extra_substitutions)
+$ if __subst_e2 .eqs. """" then goto __subst_to_end
+$ __subst_curr = __subst_curr + __subst_e2 + """"
+$ __extra_substitutions = -
+	f$extract(f$length(__subst_e2)+1,f$length(__extra_substitutions), -
+	__extra_substitutions)
+$ goto __parse_substitutions_loop
+$__subst_to_end:
+$ __subst_curr = __subst_curr + __extra_substitutions + """"
+$ __extra_subtitutions = ""
+$ goto __parse_substitutions_loop
+$__subst_process:
+$ __subst_curr = __subst_curr + __subst_e1
+$ __extra_substitutions = -
+	f$extract(f$length(__subst_e1)+1,f$length(__extra_substitutions), -
+	__extra_substitutions)
+$ sh sym __subst_curr
+$ if __subst_curr .eqs. "" .and. __extra_substitutions .eqs. "" then return
+$! We don't care about citation quotes when parsing keys... Naughty, huh?
+$ __subst_key_'__subst_max' = "@" + f$element(0,"=",__subst_curr) + "@"
+$ __subst_val_'__subst_max' = f$extract(f$length(__subst_key_'__subst_max')-1,-
+f$length(__subst_curr),__subst_curr)
+$ __subst_max = __subst_max + 1
+$ goto __parse_substitutions_init
