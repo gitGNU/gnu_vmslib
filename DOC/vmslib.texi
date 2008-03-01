@@ -1,0 +1,111 @@
+\input texinfo @c -*-texinfo-*-
+
+@c %**start of header
+@setfilename vmslib.info
+@settitle GNU vmslib
+@c %**end of header
+
+@copying
+  Copyright @copyright{}  2008  Chris Bryant (@email{cabryant@@mednet.ucla.edu}).
+  Permission is granted to copy, distribute and/or modify this document
+  under the terms of the GNU Free Documentation License, Version 1.2
+  or any later version published by the Free Software Foundation;
+  with no Invariant Sections, no Front-Cover Texts, and no Back-Cover
+  Texts.  A copy of the license is included in the section entitled "GNU
+  Free Documentation License".
+@end copying
+
+@titlepage
+  @title GNU vmslib
+  @subtitle Version 1.0
+  @author Chris Bryant (@email{cabryant@@mednet.ucla.edu})
+  @page 
+  @vskip 0pt plus 1filll
+  @insertcopying
+@end titlepage  
+
+@contents
+
+@node Top, About GNU vmslib and obtaining it, (dir), (dir)
+@ifnottex
+@top GNU vmslib
+This manual is for GNU vmslib, version 1.0.
+@end ifnottex
+
+@menu
+* About GNU vmslib and obtaining it::  
+* Building GNU vmslib::               
+* Using GNU vmslib for porting GNU packages::    
+* Considerations of GNU on VMS::       
+* API Reference::               
+* GNU Free Documentation License::  
+@end menu
+
+@node About GNU vmslib and obtaining it, Building GNU vmslib, Top, Top
+@chapter About GNU vmslib and obtaining it
+
+@menu
+* About GNU vmslib and this manual::  
+* Getting a copy::              
+* Installation::                
+@end menu
+
+@node About GNU vmslib and this manual, Getting a copy, About GNU vmslib and obtaining it, About GNU vmslib and obtaining it
+@section About GNU vmslib and this manual
+
+@node Getting a copy, Installation, About GNU vmslib and this manual, About GNU vmslib and obtaining it
+@section Getting a copy
+
+@node Installation,  , Getting a copy, About GNU vmslib and obtaining it
+@section Installation
+
+@node Building GNU vmslib, Using GNU vmslib for porting GNU packages, About GNU vmslib and obtaining it, Top
+@chapter Building GNU vmslib
+
+@menu
+* GNU C and VMS::  
+* GCC and building shared libraries::   
+@end menu
+
+@node GNU C and VMS, GCC and building shared libraries, Building GNU vmslib, Building GNU vmslib
+@section GNU C and VMS
+
+@node GCC and building shared libraries,  , GNU C and VMS, Building GNU vmslib 
+@section GCC and building shared libraries
+
+@node Using GNU vmslib for porting GNU packages, Considerations of GNU on VMS, Building GNU vmslib, Top
+@chapter Using GNU vmslib for porting GNU packages
+
+@menu
+* Overview::                    
+* Shared library::                       
+* Individual files::                        
+@end menu
+
+@node Overview, Shared library, Using GNU vmslib for porting GNU packages, Using GNU vmslib for porting GNU packages
+@section Overview
+
+@node Shared library, Individual files, Overview, Using GNU vmslib for porting GNU packages
+@section Shared library
+
+@node Individual files,  , Shared library, Using GNU vmslib for porting GNU packages
+@section Individual files
+
+@node Considerations of GNU on VMS, API Reference, Using GNU vmslib for porting GNU packages, Top
+@chapter Considerations of GNU on VMS
+
+@node API Reference, GNU Free Documentation License, Considerations of GNU on VMS, Top
+@appendix API Reference
+
+@menu
+* Functions::                  
+@end menu
+
+@node Functions,  , API Reference, API Reference
+@section Functions
+
+@node GNU Free Documentation License,  , API Reference, Top
+@unnumbered GNU Free Documentation License
+@include fdl.texi
+
+@bye
