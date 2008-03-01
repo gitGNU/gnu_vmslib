@@ -88,8 +88,27 @@ This manual is for GNU vmslib, version 1.0.
 @node Shared library, Individual files, Overview, Using GNU vmslib for porting GNU packages
 @section Shared library
 
-@node Individual files,  , Shared library, Using GNU vmslib for porting GNU packages
+@node Individual files, ,Shared library, Using GNU vmslib for porting GNU packages
 @section Individual files
+
+@menu
+* C code::
+* M4 script::
+* DCL scripts::
+* TPU routines::
+@end menu
+
+@node C code, M4 script, Individual files, Individual files 
+@section C code
+
+@node M4 script, DCL scripts, C code, Individual files
+@section M4 script
+
+@node DCL scripts, TPU routines, M4 script, Individual files
+@section DCL scripts
+
+@node TPU routines, , DCL scripts, Individual files
+@section TPU routines 
 
 @node Considerations of GNU on VMS, API Reference, Using GNU vmslib for porting GNU packages, Top
 @chapter Considerations of GNU on VMS
