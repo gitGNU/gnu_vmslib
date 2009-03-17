@@ -4,7 +4,7 @@
  * Copyright (C) 1994-2008 the Free Software Foundation, Inc.
  *
  * Author: Roland B. Roberts <roland@astrofoto.org>
- * Maintainer: Chris Bryant <cabryant@mednet.ucla.edu>
+ * Maintainer: Chris Bryant <chris.bryant@kofc13555.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

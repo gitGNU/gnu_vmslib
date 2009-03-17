@@ -6,7 +6,7 @@
 @c %**end of header
 
 @copying
-  Copyright @copyright{}  2008  Chris Bryant (@email{cabryant@@mednet.ucla.edu}).
+  Copyright @copyright{}  2008  Chris Bryant (@email{chris.bryant@kofc13555.org}).
   Permission is granted to copy, distribute and/or modify this document
   under the terms of the GNU Free Documentation License, Version 1.2
   or any later version published by the Free Software Foundation;
@@ -18,7 +18,7 @@
 @titlepage
   @title GNU vmslib
   @subtitle Version 1.0
-  @author Chris Bryant (@email{cabryant@@mednet.ucla.edu})
+  @author Chris Bryant (@email{chris.bryant@kofc13555.org})
   @page 
   @vskip 0pt plus 1filll
   @insertcopying
