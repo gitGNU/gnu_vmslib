@@ -16,7 +16,7 @@ is gen_descrip.com.  It is a command procedure that takes an input file
 and generates a makefile, which you can use to automagically copy the right
 files to the right other GNU packages.
 
-Mail suggestions and bug reports for GNU vmslib to chris.bryant@kofc13555.org.  
+Mail suggestions and bug reports for GNU vmslib to chrisbryant@ucla.edu.  
 If that doesn't work, try savannah-users@gnu.org instead.  Please include
 the GNU vmslib version number, which you can get by looking in the file 
 VERSION, along with the version of VMS you are using.

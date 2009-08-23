@@ -4,7 +4,7 @@ $! GNU vmslib - Helps people port GNU software to VMS.
 $! Copyright (C) 1994-2008 the Free Software Foundation, Inc.
 $!
 $! Author: Richard Levitte <levitte@lp.se>
-$! Maintainer: Chris Bryant <chris.bryant@kofc13555.org>
+$! Maintainer: Chris Bryant <chrisbryant@ucla.edu>
 $!
 $! This program is free software: you can redistribute it and/or modify
 $! it under the terms of the GNU General Public License as published by

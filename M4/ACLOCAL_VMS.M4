@@ -3,7 +3,7 @@ dnl GNU vmslib - Helps people port GNU software to VMS.
 dnl Copyright (C) 1994-2008 the Free Software Foundation, Inc.
 dnl
 dnl Author: Richard Levitte <levitte@lp.se>
-dnl Maintainer: Chris Bryant <chris.bryant@kofc13555.org>
+dnl Maintainer: Chris Bryant <chrisbryant@ucla.edu>
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
