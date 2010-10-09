@@ -16,10 +16,12 @@ Richard Levitte		first version of the following files in C/:
 				ECHO.C, MAKEFILE, TEST.C, HACKARGV.COM
 			first version and revisions of all the files
 			in all the other directories.
+Chris Bryant		first version of the following files in DOC/:
+				vmslib.texi
 
 ========================================================================
 
-Copyright (C) 2008, 2009 Free Software Foundation, Inc.
+Copyright (C) 2008-2010 Free Software Foundation, Inc.
 
 Permission is granted to copy, distribute and/or modify this document
 under the terms of the GNU Free Documentation License, Version 1.2 or
